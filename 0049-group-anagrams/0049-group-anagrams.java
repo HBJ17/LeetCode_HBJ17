@@ -3,35 +3,22 @@ import java.util.*;
 
 class Solution {
     public List<List<String>> groupAnagrams(String[] strs) {
-        List<List<String>> ans = new ArrayList<>();
-        boolean[] visited = new boolean[strs.length];
+        Map<String, List<String>> map = new HashMap<>();
 
-        for (int i = 0; i < strs.length; i++) {
-            if (visited[i]) continue;
+        for (String s : strs) {
+            int[] freq = new int[26];
 
-            List<String> a = new ArrayList<>();
-            a.add(strs[i]);
-            visited[i] = true;
-
-            for (int j = i + 1; j < strs.length; j++) {
-                if (!visited[j]) {
-                    char[] c1 = strs[i].toCharArray();
-                    char[] c2 = strs[j].toCharArray();
-
-                    Arrays.sort(c1);
-                    Arrays.sort(c2);
-
-                    if (Arrays.equals(c1, c2)) {
-                        a.add(strs[j]);
-                        visited[j] = true;
-                    }
-                }
+            for (char c : s.toCharArray()) {
+                freq[c - 'a']++;
             }
 
-            ans.add(a);
+            String key = Arrays.toString(freq);
+
+            map.putIfAbsent(key, new ArrayList<>());
+            map.get(key).add(s);
         }
 
-        return ans;
+        return new ArrayList<>(map.values());
     }
 }
 
