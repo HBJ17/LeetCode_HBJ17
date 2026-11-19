@@ -6,12 +6,10 @@ class Solution {
         Set<Integer> seen = new HashSet<>();
 
         for (int num : nums) {
-            if (!seen.add(num)) {
-                return true;
-            }
+            seen.add(num);
         }
 
-        return false;
+        return nums.length != seen.size();
     }
 }
 
