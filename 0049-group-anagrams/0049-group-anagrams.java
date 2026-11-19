@@ -1,27 +1,42 @@
-
 import java.util.*;
 
 class Solution {
     public List<List<String>> groupAnagrams(String[] strs) {
+
         Map<String, List<String>> map = new HashMap<>();
 
-        for (String s : strs) {
-            int[] freq = new int[26];
 
-            for (char c : s.toCharArray()) {
-                freq[c - 'a']++;
+        for (int i = 0; i < strs.length; i++) {
+
+            String s = strs[i];                
+
+
+            char[] chars = s.toCharArray();     
+            Arrays.sort(chars);                
+            String key = new String(chars);     
+
+
+            if (map.containsKey(key) == false) {
+
+                List<String> newList = new ArrayList<>();
+
+                map.put(key, newList);
             }
 
-            String key = Arrays.toString(freq);
+            List<String> group = map.get(key);
 
-            map.putIfAbsent(key, new ArrayList<>());
-            map.get(key).add(s);
+            group.add(s);
         }
 
-        return new ArrayList<>(map.values());
+
+        List<List<String>> result = new ArrayList<>();
+        for (List<String> group : map.values()) {
+            result.add(group);
+        }
+
+        return result;
     }
 }
-
 
 // Synced seamlessly with LeetHub Pro
 // Pro features: https://bit.ly/leethubpro | Free version: https://bit.ly/leethubv4
