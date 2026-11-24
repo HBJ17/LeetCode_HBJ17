@@ -1,21 +1,14 @@
 class Solution:
-    def groupAnagrams(self, strs: list[str]) -> list[list[str]]:
-        ans = []
-        used = set()                         
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        groups = {}
 
-        for i in range(len(strs)):
-            if i in used:                     
-                continue
+        for word in strs:
+            key = "".join(sorted(word))
 
-            l = [strs[i]]
-            for j in range(i + 1, len(strs)):
-                if len(strs[i]) == len(strs[j]) and sorted(strs[i]) == sorted(strs[j]):
-                    l.append(strs[j])
-                    used.add(j)
-
-            ans.append(l)                     
-
-        return ans
+            if key not in groups:
+                groups[key] = []
+            groups[key].append(word)
+        return list(groups.values())
 
 # Synced seamlessly with LeetHub Pro
 # Pro features: https://bit.ly/leethubpro | Free version: https://bit.ly/leethubv4
