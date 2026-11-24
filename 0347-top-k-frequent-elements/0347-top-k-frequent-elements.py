@@ -1,21 +1,19 @@
 class Solution:
     def topKFrequent(self, nums: list[int], k: int) -> list[int]:
-        l = {}
-        c = []
+
+        d = {}
 
         for i in nums:
-            count = 0
-            for j in nums:
-                if(i == j):
-                    count += 1
-            l[i] = count
+            d[i] = d.get(i, 0) + 1
 
-        sorted_d = dict(sorted(l.items(), key=lambda x: x[1], reverse=True))
+        sorted_d = dict(sorted(d.items(), key=lambda x: x[1], reverse=True))
 
-        for i in sorted_d:
-            c.append(i)
+        result = []
 
-        return c[:k]
+        for key in sorted_d:
+            result.append(key)
+
+        return result[:k]
 
 # Synced seamlessly with LeetHub Pro
 # Pro features: https://bit.ly/leethubpro | Free version: https://bit.ly/leethubv4
