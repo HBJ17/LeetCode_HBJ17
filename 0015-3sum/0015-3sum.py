@@ -1,16 +1,19 @@
 class Solution:
     def threeSum(self, nums: list[int]) -> list[list[int]]:
         ans = set()
-
         n = len(nums)
 
         for i in range(n):
-            for j in range(i + 1, n):
-                for k in range(j + 1, n):
+            seen = set()
 
-                    if nums[i] + nums[j] + nums[k] == 0:
-                        triplet = tuple(sorted([nums[i], nums[j], nums[k]]))
-                        ans.add(triplet)
+            for j in range(i + 1, n):
+                complement = -nums[i] - nums[j]
+
+                if complement in seen:
+                    triplet = tuple(sorted([nums[i], nums[j], complement]))
+                    ans.add(triplet)
+
+                seen.add(nums[j])
 
         return [list(t) for t in ans]
 
